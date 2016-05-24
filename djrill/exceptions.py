@@ -1,4 +1,6 @@
 import json
+import smtplib
+
 from requests import HTTPError
 
 
@@ -74,7 +76,7 @@ class MandrillAPIError(DjrillError, HTTPError):
             self.status_code = self.response.status_code
 
 
-class MandrillRecipientsRefused(DjrillError):
+class MandrillRecipientsRefused(DjrillError, smtplib.SMTPRecipientsRefused):
     """Exception for send where all recipients are invalid or rejected."""
 
     def __init__(self, message=None, *args, **kwargs):
